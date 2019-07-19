@@ -57,3 +57,6 @@ func _ready():
 
 func _process(var delta):
 	Global.increment_frames_since_last_hit()
+
+func _on_Button_pressed():
+	Global.return_to_title_screen()

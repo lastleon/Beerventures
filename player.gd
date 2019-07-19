@@ -6,6 +6,7 @@ const JUMP = 500
 
 var velocity = Vector2()
 var jumpCounter = 1
+var baseJumps = 1
 var score = 0
 
 func _physics_process(delta):
@@ -29,7 +30,7 @@ func _physics_process(delta):
 		jumpCounter -= 1
 	
 	if is_on_floor():
-		jumpCounter = 1
+		jumpCounter = baseJumps
 	if self.position.y > Global.get_lower_death_boundary():
 		Global.return_to_title_screen()
 	

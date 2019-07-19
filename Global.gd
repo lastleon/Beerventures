@@ -10,6 +10,10 @@ var level_index = 0
 
 var frames_since_last_hit = 0
 var invincibility_frames = 15
+
+# upgrade Variables
+var baseLife = 10
+
 # this is always the starter-config
 # more values will come soon
 var config = {
@@ -19,11 +23,12 @@ var config = {
 	"ENEMIES" : [],
 	"ENEMY_COUNT" : "10",
 	"PLAYER_STATS": {
-		"LIFE" : "10",
+		"LIFE" : str(baseLife),
 		"SCORE" : "0",
 		"ITEMS" : [],
 	}
 }
+
 
 func add_score(var points):
 	config["PLAYER_STATS"]["SCORE"] = str(points + int(config["PLAYER_STATS"]["SCORE"]))
@@ -44,7 +49,7 @@ func return_to_title_screen():
 	config["ENEMIES"] = make_enemy_array()
 	config["ENEMY_COUNT"] = "10"
 	
-	config["PLAYER_STATS"]["LIFE"] = "10"
+	config["PLAYER_STATS"]["LIFE"] = str(baseLife)
 	config["PLAYER_STATS"]["SCORE"] = "0"
 	# items stay the same
 	
