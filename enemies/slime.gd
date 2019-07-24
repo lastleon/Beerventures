@@ -10,6 +10,8 @@ const JUMP_HEIGHT = -500
 var motion = Vector2()
 var direction = 1
 
+var life = 3
+
 var react_time = 200
 var next_dir = 0
 var next_dir_time = 0
@@ -21,12 +23,10 @@ var target_player_dist = 140
 var eye_reach = 50
 var vision = 200
 
-###########
-
 export var spawn_frequency = .3
-export var damage = 1
 
-############
+func _ready():
+	pass
 
 func set_dir(target_dir):
 	if direction != target_dir:
@@ -92,4 +92,9 @@ func _physics_process(delta):
 		$RayCast2D.position.x *= -1
 	
 func get_damage():
-	return damage
+	return 1
+
+func damage(amount):
+	life -= amount
+	if life <= 0:
+		queue_free()
