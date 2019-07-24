@@ -4,8 +4,6 @@ const LEVEL_LENGTH = 30
 const LEVELS = ["city", "testworld"]
 const BASELIFE = 10
 
-onready var Player = get_tree().get_root().get_node("World/Node2D/Player")
-
 # this should be recognized automatically
 var ALL_LEVEL_MODULES = parse_modules() # level : [modules]
 var ALL_LEVEL_ENEMIES = parse_level_enemy_data() # level : {enemy : spawn_frequency(normalized to level)}
@@ -32,7 +30,7 @@ var config = {
 		"SCORE" : "0",
 		"MONEY" : "100",
 		"ITEM_IN_HAND" : "none",
-		"ITEMS" : {"none":null},
+		"ITEMS" : {"none":Node2D.new()},
 	}
 }
 
@@ -51,7 +49,6 @@ func add_health(var health):
 func add_item(var item) -> bool:
 	if item in ALL_ITEMS and not (item in config["PLAYER_STATS"]["ITEMS"]):
 		config["PLAYER_STATS"]["ITEMS"][item] = load("res://items/" + item + ".tscn").instance()
-		config["PLAYER_STATS"]["ITEM_IN_HAND"] = item
 		return true
 	return false
 
@@ -176,6 +173,7 @@ func get_start_position() -> Vector2:
 	return Vector2(20,40)
 
 func change_to_next_item():
+	var item_container = get_tree().get_root().get_node("World/Node2D/Player/Item")
 	var item_list = config["PLAYER_STATS"]["ITEMS"].keys()
 	var index = -1
 	for i in range(0, len(item_list)):
@@ -184,6 +182,10 @@ func change_to_next_item():
 			break
 	index %= len(item_list)
 	config["PLAYER_STATS"]["ITEM_IN_HAND"] = item_list[index]
+	if item_container.get_child_count() > 0:
+		item_container.remove_child(item_container.get_children()[0])
+	
+	item_container.add_child(config["PLAYER_STATS"]["ITEMS"][item_list[index]])
 	
 	print("Changed to " + item_list[index])
 
@@ -233,8 +235,6 @@ func parse_items() -> Array:
 		print("There was a problem when trying to open the path: " + path)
 		
 	return return_array
-
-
 
 func parse_level_enemy_data() -> Dictionary:
 	# find all enemies

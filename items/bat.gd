@@ -1,4 +1,38 @@
-extends KinematicBody2D
+extends Area2D
+
+onready var Player = get_tree().get_root().get_node("World/Node2D/Player")
+
+export var damage = 2
+
+var time_since_last_use = 11
+var max_time_since_last_use = 10
+###########################################              dis shit isn't working !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+func reset_bat():
+	$CollisionShape2D.set_disabled(true)
+	$Sprite.visible = true
+	$AnimatedSprite.visible = false
+
+func use_item():
+	$Sprite.visible = false
+	
+	$CollisionShape2D.set_disabled(false)
+	
+	$AnimatedSprite.visible = true
+	$AnimatedSprite.play("attack")
+	
+
+func _ready():
+	set_position(Vector2(30,30))
+	reset_bat()
+
+func _on_bat_body_entered(body):
+	if body.is_in_group("enemies"):
+		body.damage(damage)
+	reset_bat()
+
+
+"""extends Area2D
+
 var use_Frames = 0
 const animation_Frames = 50
 var damage = 1
@@ -28,3 +62,6 @@ func _physics_process(delta):
 		var collider = collision.collider
 		if collider.is_in_group("enemies"):
 			collider.damage(damage)
+			
+		"""
+

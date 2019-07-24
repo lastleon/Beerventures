@@ -31,3 +31,5 @@ frames = SubResource( 2 )
 animation = "basic"
 centered = false
 offset = Vector2( -8, -20 )
+
+[node name="Item" type="Node2D" parent="Player"]
