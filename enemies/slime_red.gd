@@ -23,7 +23,7 @@ var vision = 200
 
 ############ 
 
-export var spawn_frequency = .3
+export var spawn_frequency = .1
 export var damage = 5
 
 ############

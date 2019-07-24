@@ -14,11 +14,12 @@ func _physics_process(delta):
 	velocity.y += GRAVITY 
 	
 	if Input.is_action_pressed("ui_right"):
-		 velocity.x = SPEED;
+		velocity.x = SPEED
 	elif Input.is_action_pressed("ui_left"):
 		velocity.x = -SPEED
 	else:
 		velocity.x /= 1.2
+	$AnimatedSprite.play("idle")
 	
 	"""
 	if Global.invincible() and $AnimatedSprite.animation != "damage":
@@ -30,16 +31,8 @@ func _physics_process(delta):
 		jumpCounter -= 1
 	
 	if Input.is_action_just_pressed("ui_changeItem"):
-		var ItemList = Global.get_current_config()["PLAYER_STATS"]["ITEMS"].keys()
-		var ind = -1
-		for i in range(0,len(ItemList)):
-			if ItemList[i] == Global.get_current_config()["PLAYER_STATS"]["ITEM_IN_HAND"]:
-				ind = i+1
-				break
-		ind %= len(ItemList)
-		print("changed to " + ItemList[ind])
-		Global.set_Item_in_Hand(ItemList[ind])
-	
+		Global.change_to_next_item()
+		
 	if is_on_floor():
 		jumpCounter = baseJumps
 	if self.position.y > Global.get_lower_death_boundary():

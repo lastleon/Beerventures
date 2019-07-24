@@ -1,5 +1,7 @@
 extends Control
 
+func _ready():
+	get_node("AudioStreamPlayer").play()
 
 func _on_Button_pressed():
 	get_tree().change_scene("res://world.tscn")

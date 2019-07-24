@@ -3,6 +3,10 @@ extends Control
 var health_cost = 10
 var dagger_cost = 30
 
+func _ready():
+	get_node("AudioStreamPlayer").play()
+
+
 func _on_buy_dagger_pressed():
 	var config = Global.get_current_config()
 	if int(config["PLAYER_STATS"]["MONEY"]) >= dagger_cost:

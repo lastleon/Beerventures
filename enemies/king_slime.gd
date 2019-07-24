@@ -25,6 +25,15 @@ var timer = null
 var jump_delay = 3
 var can_jump = true
 
+###########
+
+export var damage = 20
+export var spawn_frequency = .04
+
+##########
+
+func get_damage():
+	return damage
 
 func _ready():
 	
@@ -45,7 +54,16 @@ func jump():
 		
 		can_jump = false
 		
+		$AnimatedSprite.play("idle")
+		
 		timer.start()
+	else:
+		if position.y > Global.get_lower_death_boundary():
+			queue_free()
+		if motion.y < 0:
+			$AnimatedSprite.play("jump_up")
+		else:
+			$AnimatedSprite.play("jump_down")
 
 func set_dir(target_dir):
 	if direction != target_dir:
@@ -79,6 +97,7 @@ func sees_player():
 func _physics_process(delta):
 	
 	motion.y += GRAVITY
+	
 	
 	jump()
 	

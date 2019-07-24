@@ -18,7 +18,6 @@ var invincibility_frames = 15
 # upgrade Variables
 var startingLife = 10
 
-
 # this is always the starter-config
 # more values will come soon
 var config = {
@@ -35,6 +34,9 @@ var config = {
 		"ITEMS" : {"none":null},
 	}
 }
+
+var player
+
 
 func _process(delta):
 	if Input.is_action_just_pressed("action_key"):
@@ -89,6 +91,9 @@ func _ready():
 	ALL_ITEMS = parse_items()
 	config["LEVEL_MODULES"] = make_level()
 	config["ENEMIES"] = make_enemy_array()
+	player = AudioStreamPlayer.new()
+	player.stream = load("res://sounds/Bayerischer_Biertechno (online-audio-converter.com).wav")
+	player.play()
 
 func get_current_config() -> Dictionary:
 	return deep_copy(config)
@@ -175,8 +180,17 @@ func next_level() -> void:
 func get_start_position() -> Vector2:
 	return Vector2(20,40)
 
-func set_Item_in_Hand(item):
-	config["PLAYER_STATS"]["ITEM_IN_HAND"] = item
+func change_to_next_item():
+	var item_list = config["PLAYER_STATS"]["ITEMS"].keys()
+	var index = -1
+	for i in range(0, len(item_list)):
+		if item_list[i] == config["PLAYER_STATS"]["ITEM_IN_HAND"]:
+			index = i+1
+			break
+	index %= len(item_list)
+	config["PLAYER_STATS"]["ITEM_IN_HAND"] = item_list[index]
+	
+	print("Changed to " + item_list[index])
 
 func parse_modules() -> Dictionary:
 	var path = "res://level/"

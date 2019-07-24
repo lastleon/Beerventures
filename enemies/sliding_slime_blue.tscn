@@ -1,14 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://enemies/sliding_slime_blue.gd" type="Script" id=1]
-[ext_resource path="res://enemies/res/slime/idle/Slime.png" type="Texture" id=2]
-[ext_resource path="res://enemies/res/slime/jump_down/SlimeJumpFrame6.png" type="Texture" id=3]
-[ext_resource path="res://enemies/res/slime/jump_down/SlimeJumpFrame7.png" type="Texture" id=4]
-[ext_resource path="res://enemies/res/slime/jump_up/SlimeJumpFrame1.png" type="Texture" id=5]
-[ext_resource path="res://enemies/res/slime/jump_up/SlimeJumpFrame2.png" type="Texture" id=6]
-[ext_resource path="res://enemies/res/slime/jump_up/SlimeJumpFrame3.png" type="Texture" id=7]
-[ext_resource path="res://enemies/res/slime/jump_up/SlimeJumpFrame4.png" type="Texture" id=8]
-[ext_resource path="res://enemies/res/slime/jump_up/SlimeJumpFrame5.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Blauer Slime/blue-Slime1.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/Blauer Slime/blue-Slime2.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Blauer Slime/blue-Slime4.png" type="Texture" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -17,14 +12,9 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ), ExtResource( 4 ) ],
-"loop": false,
-"name": "jump_down",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
-"loop": false,
-"name": "jump_up",
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "walkin",
 "speed": 5.0
 } ]
 
@@ -39,7 +29,7 @@ script = ExtResource( 1 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 1 )
-animation = "idle"
+animation = "walkin"
 centered = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]

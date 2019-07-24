@@ -1,1 +1,4 @@
 slime
+sliding_slime_blue
+slime_red
+king_slime

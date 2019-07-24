@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://world.gd" type="Script" id=1]
+[ext_resource path="res://sounds/Bayerischer_Biertechno (online-audio-converter.com).wav" type="AudioStream" id=2]
+[ext_resource path="res://AudioStreamPlayer.gd" type="Script" id=3]
 
 [node name="World" type="Node"]
 script = ExtResource( 1 )
@@ -12,3 +14,8 @@ motion_scale = Vector2( 0.1, 0.1 )
 
 [node name="Background" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
 centered = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 24.0
+script = ExtResource( 3 )

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Shop.gd" type="Script" id=1]
+[ext_resource path="res://sounds/Bayerischer_Biertechno (online-audio-converter.com).wav" type="AudioStream" id=2]
 
 [node name="Shop" type="Control"]
 anchor_right = 1.0
@@ -88,6 +89,10 @@ margin_bottom = 30.0
 margin_right = 20.0
 margin_bottom = 20.0
 text = "+"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+volume_db = 24.0
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/return_button" to="." method="_on_return_button_pressed"]
 [connection signal="pressed" from="MarginContainer2/CenterContainer/VBoxContainer/buy_health" to="." method="_on_buy_health_pressed"]
 [connection signal="pressed" from="MarginContainer3/CenterContainer/VBoxContainer/buy_dagger" to="." method="_on_buy_dagger_pressed"]

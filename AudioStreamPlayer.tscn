@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sounds/Bayerischer_Biertechno (online-audio-converter.com).wav" type="AudioStream" id=1]
+
+[sub_resource type="GDScript" id=1]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource( 1 )
+volume_db = 24.0
+script = SubResource( 1 )

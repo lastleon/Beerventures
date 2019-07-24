@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Area2D",
 "class": "Testcoin",
 "language": "GDScript",
-"path": "res://items/testcoin.gd"
+"path": "res://coins/testcoin.gd"
 } ]
 _global_script_class_icons={
 "Testcoin": ""

@@ -23,7 +23,7 @@ var vision = 200
 
 #########
 
-export var spawn_frequency = .5
+export var spawn_frequency = .2
 export var damage = 3
 
 #########
@@ -62,12 +62,12 @@ func _physics_process(delta):
 	motion.y += GRAVITY
 	
 	if is_on_floor():
-		$AnimatedSprite.play("idle")
 		motion.x = SPEED * direction
 	else:
 		if position.y > Global.get_lower_death_boundary():
 			queue_free()
-	
+
+	$AnimatedSprite.play("walkin")
 	
 	if Player.position.x < position.x - target_player_dist and sees_player():
 		set_dir(-1)
