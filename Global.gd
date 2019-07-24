@@ -4,6 +4,8 @@ const LEVEL_LENGTH = 30
 const LEVELS = ["city", "testworld"]
 const BASELIFE = 10
 
+onready var Player = get_tree().get_root().get_node("World/Node2D/Player")
+
 # this should be recognized automatically
 var ALL_LEVEL_MODULES = parse_modules() # level : [modules]
 var ALL_LEVEL_ENEMIES = parse_level_enemy_data() # level : {enemy : spawn_frequency(normalized to level)}
@@ -30,7 +32,7 @@ var config = {
 		"SCORE" : "0",
 		"MONEY" : "100",
 		"ITEM_IN_HAND" : "none",
-		"ITEMS" : {},
+		"ITEMS" : {"none":null},
 	}
 }
 
@@ -173,6 +175,9 @@ func next_level() -> void:
 func get_start_position() -> Vector2:
 	return Vector2(20,40)
 
+func set_Item_in_Hand(item):
+	config["PLAYER_STATS"]["ITEM_IN_HAND"] = item
+
 func parse_modules() -> Dictionary:
 	var path = "res://level/"
 	var module_dict = {}
@@ -219,6 +224,8 @@ func parse_items() -> Array:
 		print("There was a problem when trying to open the path: " + path)
 		
 	return return_array
+
+
 
 func parse_level_enemy_data() -> Dictionary:
 	# find all enemies

@@ -6,9 +6,9 @@ var dagger_cost = 30
 func _on_buy_dagger_pressed():
 	var config = Global.get_current_config()
 	if int(config["PLAYER_STATS"]["MONEY"]) >= dagger_cost:
-		if Global.add_item("dagger"):
+		if Global.add_item("bat"):
 			Global.add_money(-dagger_cost)
-			print("Dagger added!")
+			print("Bat added!")
 		else:
 			print("You already own this item...")
 	else:

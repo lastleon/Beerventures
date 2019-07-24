@@ -25,6 +25,10 @@ func _ready():
 	player.set_position(Global.get_start_position())
 	add_child(player)
 	
+	# item initiaisation
+	if config["PLAYER_STATS"]["ITEM_IN_HAND"] != "none":
+		player.add_child(config["PLAYER_STATS"]["ITEMS"][config["PLAYER_STATS"]["ITEM_IN_HAND"]])
+	
 	# useful for the loop beneath
 	var summed_length_of_level = 0
 	
