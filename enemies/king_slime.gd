@@ -25,6 +25,15 @@ var timer = null
 var jump_delay = 3
 var can_jump = true
 
+###########
+
+export var damage = 20
+export var spawn_frequency = .4
+
+##########
+
+func get_damage():
+	return damage
 
 func _ready():
 	

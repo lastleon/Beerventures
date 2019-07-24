@@ -23,8 +23,6 @@ func _physics_process(delta):
 	var velocity = player_pos-item_pos
 	move_and_slide(velocity,Vector2.UP)
 	
-	print(get_global_position())
-	
 	for i in get_slide_count():
 		var collision = get_slide_collision(i)
 		var collider = collision.collider

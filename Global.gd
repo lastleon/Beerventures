@@ -175,8 +175,17 @@ func next_level() -> void:
 func get_start_position() -> Vector2:
 	return Vector2(20,40)
 
-func set_Item_in_Hand(item):
-	config["PLAYER_STATS"]["ITEM_IN_HAND"] = item
+func change_to_next_item():
+	var item_list = config["PLAYER_STATS"]["ITEMS"].keys()
+	var index = -1
+	for i in range(0, len(item_list)):
+		if item_list[i] == config["PLAYER_STATS"]["ITEM_IN_HAND"]:
+			index = i+1
+			break
+	index %= len(item_list)
+	config["PLAYER_STATS"]["ITEM_IN_HAND"] = item_list[index]
+	
+	print("Changed to " + item_list[index])
 
 func parse_modules() -> Dictionary:
 	var path = "res://level/"
