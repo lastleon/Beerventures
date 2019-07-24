@@ -220,8 +220,6 @@ func parse_items() -> Array:
 		
 	return return_array
 
-
-
 func parse_level_enemy_data() -> Dictionary:
 	# find all enemies
 	var path = "res://enemies/"

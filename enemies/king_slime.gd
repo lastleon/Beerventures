@@ -3,7 +3,7 @@ extends KinematicBody2D
 onready var Player = get_tree().get_root().get_node("World/Node2D/Player")
 
 const GRAVITY = 20
-const SPEED = 100
+const SPEED = 30
 const UP = Vector2(0, -1)
 const JUMP_HEIGHT = -500
 
@@ -18,15 +18,34 @@ var next_jump_time = -1
 
 var target_player_dist = 140
 
-var eye_reach = 50
-var vision = 200
+var eye_reach = 100
+var vision = 600
 
-###########
+var timer = null
+var jump_delay = 3
+var can_jump = true
 
-export var spawn_frequency = .3
-export var damage = 1
 
-############
+func _ready():
+	
+	timer = Timer.new()
+	timer.set_one_shot(true)
+	timer.set_wait_time(jump_delay)
+	timer.connect("timeout", self, "on_timeout_complete")
+	add_child(timer)
+	
+	
+func on_timeout_complete():
+	can_jump = true
+	
+func jump():
+	if is_on_floor() && can_jump:
+		motion.y = -600
+		motion.x = SPEED * direction
+		
+		can_jump = false
+		
+		timer.start()
 
 func set_dir(target_dir):
 	if direction != target_dir:
@@ -61,18 +80,7 @@ func _physics_process(delta):
 	
 	motion.y += GRAVITY
 	
-	if is_on_floor():
-		$AnimatedSprite.play("idle")
-		motion.x = SPEED * direction
-		motion.y = -400
-	else:
-		if position.y > Global.get_lower_death_boundary():
-			queue_free()
-		if motion.y < 0:
-			$AnimatedSprite.play("jump_up")
-		else:
-			$AnimatedSprite.play("jump_down")
-	
+	jump()
 	
 	if Player.position.x < position.x - target_player_dist and sees_player():
 		set_dir(-1)
@@ -90,6 +98,3 @@ func _physics_process(delta):
 	if $RayCast2D.is_colliding() == false:
 		direction = direction * -1
 		$RayCast2D.position.x *= -1
-	
-func get_damage():
-	return damage

@@ -21,10 +21,10 @@ var target_player_dist = 140
 var eye_reach = 50
 var vision = 200
 
-###########
+############ 
 
 export var spawn_frequency = .3
-export var damage = 1
+export var damage = 5
 
 ############
 

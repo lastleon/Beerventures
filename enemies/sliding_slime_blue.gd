@@ -21,12 +21,12 @@ var target_player_dist = 140
 var eye_reach = 50
 var vision = 200
 
-###########
+#########
 
-export var spawn_frequency = .3
-export var damage = 1
+export var spawn_frequency = .5
+export var damage = 3
 
-############
+#########
 
 func set_dir(target_dir):
 	if direction != target_dir:
@@ -64,14 +64,9 @@ func _physics_process(delta):
 	if is_on_floor():
 		$AnimatedSprite.play("idle")
 		motion.x = SPEED * direction
-		motion.y = -400
 	else:
 		if position.y > Global.get_lower_death_boundary():
 			queue_free()
-		if motion.y < 0:
-			$AnimatedSprite.play("jump_up")
-		else:
-			$AnimatedSprite.play("jump_down")
 	
 	
 	if Player.position.x < position.x - target_player_dist and sees_player():
@@ -87,7 +82,7 @@ func _physics_process(delta):
 		direction = direction * -1
 		$RayCast2D.position.x *= -1
 		
-	if $RayCast2D.is_colliding() == false:
+	if !$RayCast2D.is_colliding():
 		direction = direction * -1
 		$RayCast2D.position.x *= -1
 	
