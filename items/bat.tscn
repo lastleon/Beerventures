@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://items/bat.gd" type="Script" id=1]
 [ext_resource path="res://items/res/bat2.png" type="Texture" id=2]
-[ext_resource path="res://items/res/bat1.png" type="Texture" id=3]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -12,16 +11,14 @@ animations = [ {
 "speed": 20.0
 } ]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "extends AnimatedSprite
 
-func _on_animation_finished():
-	print(\"called\")
-	get_parent().reset_bat()
-"
+func _ready():
+	pass"
 
-[sub_resource type="CapsuleShape2D" id=2]
-height = 43.2466
+[sub_resource type="CapsuleShape2D" id=3]
+height = 43.0
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource( 1 )
@@ -31,16 +28,10 @@ scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
 animation = "attack"
 offset = Vector2( 100, -110 )
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 29.0373, -5.37728 )
+position = Vector2( 30, -5.3 )
 rotation = 1.5708
-shape = SubResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 22.9431, -27.6034 )
-scale = Vector2( 0.25, 0.25 )
-texture = ExtResource( 3 )
+shape = SubResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_bat_body_entered"]
-[connection signal="animation_finished" from="AnimatedSprite" to="AnimatedSprite" method="_on_animation_finished"]

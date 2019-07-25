@@ -4,26 +4,45 @@ onready var Player = get_tree().get_root().get_node("World/Node2D/Player")
 
 export var damage = 2
 
+var collision_shape = CapsuleShape2D.new()
+
 var time_since_last_use = 11
 var max_time_since_last_use = 10
-###########################################              dis shit isn't working !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-func reset_bat():
-	$CollisionShape2D.set_disabled(true)
-	$Sprite.visible = true
-	$AnimatedSprite.visible = false
-
-func use_item():
-	$Sprite.visible = false
-	
-	$CollisionShape2D.set_disabled(false)
-	
-	$AnimatedSprite.visible = true
-	$AnimatedSprite.play("attack")
-	
 
 func _ready():
+	collision_shape.set_radius(10)
+	collision_shape.set_height(43)
 	set_position(Vector2(30,30))
 	reset_bat()
+
+func flip_to_left():
+	$CollisionShape2D.position = Vector2(-abs($CollisionShape2D.position.x), $CollisionShape2D.position.y)
+	$AnimatedSprite.position = Vector2(-abs($AnimatedSprite.position.x), $AnimatedSprite.position.y)
+	$AnimatedSprite.set_flip_h(true)
+
+func flip_to_right():
+	$CollisionShape2D.set_posi
+	$CollisionShape2D.position = Vector2(abs($CollisionShape2D.position.x), $CollisionShape2D.position.y)
+	$AnimatedSprite.position = Vector2(abs($AnimatedSprite.position.x), $AnimatedSprite.position.y)
+	$AnimatedSprite.set_flip_h(false)
+
+func reset_bat():
+	$CollisionShape2D.shape = null
+	$AnimatedSprite.play("idle")
+
+func use_item():
+	$CollisionShape2D.shape = collision_shape
+	$AnimatedSprite.play("attack")
+	time_since_last_use = 0
+
+
+	
+func _process(delta):
+	
+	if time_since_last_use > max_time_since_last_use:
+		reset_bat()
+	else:
+		time_since_last_use += 1
 
 func _on_bat_body_entered(body):
 	if body.is_in_group("enemies"):
