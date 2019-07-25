@@ -326,6 +326,7 @@ static func deep_copy(v):
 		return d
 	
 	elif t == TYPE_OBJECT:
+		print(t)
 		if v.has_method("duplicate"):
 			return v.duplicate()
 		else:
